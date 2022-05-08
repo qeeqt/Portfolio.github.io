@@ -1,4 +1,13 @@
 .header {
   width: 100%;
-  background-color: rgb(87, 75, 75);
+  background-color: white;
+  height: 5em;
+}
+.divlink {
+  padding-left: 40%;
+  padding-top: 1%;
+}
+.Link {
+  font-size: 28px;
+  margin-left: 5%;
 }
