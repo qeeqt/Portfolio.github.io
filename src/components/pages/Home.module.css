@@ -1,0 +1,19 @@
+.conteiner{
+    background-image: url("/src/fhoto/home.png");
+    background-repeat: no-repeat;
+    background-size: 150em ,150em;
+}
+
+.h2{
+color: white;
+    margin-left: 40%;
+    margin-bottom: 40%;
+
+}
+.h1{
+    color: white;
+    margin-left: 40%;
+}
+.h3{
+    margin-left: 40%;
+}
