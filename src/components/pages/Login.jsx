@@ -10,7 +10,7 @@ import {
 import { forwardRef, useRef, useState } from "react";
 import { Form, Schema, Button, ButtonToolbar } from "rsuite";
 import { Admin } from "./Admin";
-
+import { Home } from "./Home";
 const { StringType, NumberType } = Schema.Types;
 
 const model = Schema.Model({
@@ -55,11 +55,11 @@ const Login = () => {
     if (formValue.name === "Володимир" && formValue.password === "123") {
       Navigate("../Admin");
     } else {
-      console.log("no");
+      // Navigate("/");
     }
     return;
   };
-  //console.log(formValue);
+  console.log(formValue);
 
   return (
     <Form
