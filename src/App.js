@@ -3,7 +3,8 @@ import { Home } from "./components/pages/Home";
 import { Admin } from "./components/pages/Admin";
 import { Login } from "./components/pages/Login";
 import "./App.css";
-import PrivateRoute from "./components/PrivateRoute";
+ import {RequireAuth} from "./hoc/RequireAuth";
+ import {AuthProvider} from "./hoc/AuthProvider"
 
 const App = () => {
   return (
@@ -16,24 +17,25 @@ const App = () => {
           <Link className="Link" to="/Login">
             Login
           </Link>
-          {/*<Link className="Link" to="/Admin">
+          <Link className="Link" to="/Admin">
             Admim
-  </Link>*/}
+  </Link>
         </div>
       </header>
+      
+      <AuthProvider>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Login" element={<Login />} />
-        <Route
-          path="/Admin"
-          element={
-            <PrivateRoute>
-              <Admin />
-            </PrivateRoute>
-          }
-        />
-      </Routes>
-    </>
+        <Route path="/Admin"element={
+        <RequireAuth> 
+        <Admin />
+         </RequireAuth>
+        }/>
+        </Routes>
+      </AuthProvider>
+      </>
+    
   );
 };
 
