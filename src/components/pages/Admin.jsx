@@ -1,12 +1,13 @@
 import React from "react";
 import StartFirebase from "../firebase";
 import { ref, set, get, update, remove, child } from "firebase/database";
- export class Admin extends React.Component {
+import { Link } from "react-router-dom";
+export class Admin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       db: "",
-      user:"",
+      user: "",
       fullname: "",
       skills: "",
       role: "",
@@ -19,21 +20,23 @@ import { ref, set, get, update, remove, child } from "firebase/database";
     });
   }
   render() {
+    console.log(this.state)
     return (
       <>
-       <label>Enter user</label>
+
+        <label>Enter user</label>
         <input
           type="text"
           id="userbox"
           value={this.state.user}
-          onChange={e=>{this.setState({user:e.target.value});}} />
-          <br />
+          onChange={e => { this.setState({ user: e.target.value }); }} />
+        <br />
         <label>Enter fullname</label>
         <input
           type="text"
           id="namebox"
           value={this.state.fullname}
-          onChange={(e) => {this.setState({ fullname: e.target.value });}}/>
+          onChange={(e) => { this.setState({ fullname: e.target.value }); }} />
         <br />
         <label>Enter skills</label>
         <input
@@ -75,11 +78,11 @@ import { ref, set, get, update, remove, child } from "firebase/database";
     if (id == "addBtn") {
       this.insertData();
     } else if (id == "updateBtn") {
-       this.updateData();
+      this.updateData();
     } else if (id == "deleteBtn") {
-       this.deleteData();
+      this.deleteData();
     } else if (id == "selectBtn") {
-       this.selectData();
+      this.selectData();
     }
   }
   getAllInputs() {
@@ -93,50 +96,52 @@ import { ref, set, get, update, remove, child } from "firebase/database";
   insertData() {
     const db = this.state.db;
     const data = this.getAllInputs();
-    set(ref(db, 'input/'+ data.user), {
+    set(ref(db, 'input/' + data.user), {
       Fullname: data.fullname,
       Skills: data.skills,
       Role: data.role,
     })
-    .then(()=>{alert('ok')})
-    .catch((error)=>{alert("no"+error)});
+      .then(() => { alert('ok') })
+      .catch((error) => { alert("no" + error) });
 
   }
   updateData() {
     const db = this.state.db;
     const data = this.getAllInputs();
-    update(ref(db, 'input/'+ data.user), {
+    update(ref(db, 'input/' + data.user), {
       Fullname: data.fullname,
       Skills: data.skills,
       Role: data.role,
     })
-    .then(()=>{alert('ok')})
-    .catch((error)=>{alert("no"+error)});
+      .then(() => { alert('ok') })
+      .catch((error) => { alert("no" + error) });
   }
   deleteData() {
     const db = this.state.db;
     const user = this.getAllInputs().user;
-    remove(ref(db, 'input/'+ user))
-    .then(()=>{alert('ok')})
-    .catch((error)=>{alert("no"+error)});
+    remove(ref(db, 'input/' + user))
+      .then(() => { alert('ok') })
+      .catch((error) => { alert("no" + error) });
 
   }
-  selectData(){
-  const dbref = ref(this.state.db);
-  const user = this.getAllInputs().user;
-  get(child(dbref,'input/'+user)).then((snapshot)=>{
-    if(snapshot.exists()){
-      this.setState({
-        fullname: snapshot.val().Fullname,
-      skills: snapshot.val().Skills,
-      role: snapshot.val().Role,
-      })
-    }
-    else{
-      alert("no dtb found")
-    }
-  })
-  };
+  selectData() {
+    const dbref = ref(this.state.db);
+    const user = this.getAllInputs().user;
+    get(child(dbref, 'input/' + user)).then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log(snapshot.val())
+        this.setState({
+          fullname: snapshot.val().Fullname,
+          skills: snapshot.val().Skills,
+          role: snapshot.val().Role,
+        })
+      }
+      else {
+        alert("no dtb found")
+      }
+    })
+      .catch((error) => { alert("there was an error,details:" + error) });
+  }
 }
 
 
